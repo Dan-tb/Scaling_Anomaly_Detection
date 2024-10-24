@@ -25,7 +25,8 @@ num_epochs = 10
 for epoch in range(num_epochs):
     model.train()
     train_loss = 0
-    for batch in dataloader:
+    for batch_load in dataloader:
+        batch, image = batch_load
         batch = batch.to(device)
         optimizer.zero_grad()
         recon_batch, mu, logvar = model(batch)
