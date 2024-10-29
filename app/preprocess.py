@@ -5,21 +5,26 @@ from torchvision import transforms
 from torch.utils.data import Dataset
 import torch.nn as nn
 
-class ImageDataset(torch.utils.data.Dataset):
-    def __init__(self, image_dir, transform=None):
-        self.image_dir = image_dir
-        self.image_paths = [os.path.join(image_dir, img) for img in os.listdir(image_dir)]
+# app/preprocess.py
+from torch.utils.data import Dataset
+from PIL import Image
+
+class ImageDataset(Dataset):
+    def __init__(self, images, image_names, transform=None):
+        self.images = images
+        self.image_names = image_names  # Store only names, not paths
         self.transform = transform
 
     def __len__(self):
-        return len(self.image_paths)
+        return len(self.images)
 
     def __getitem__(self, idx):
-        img_path = self.image_paths[idx]
-        image = Image.open(img_path).convert('RGB')
+        image = self.images[idx]
+        img_name = self.image_names[idx]  # Use image name instead of path
         if self.transform:
             image = self.transform(image)
-        return image, img_path
+        return image, img_name
+
     
 transform = transforms.Compose([
     transforms.Resize((64, 64)), 
