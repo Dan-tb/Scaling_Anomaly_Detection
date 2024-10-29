@@ -1,21 +1,21 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from detection import detect_anomalies
+from app.detection import detect_anomalies
 from pydantic import BaseModel
 from typing import List
 import torch
-from model import ConvVAE
+from app.model import ConvVAE
 import zipfile
 import rarfile
 import io
 from PIL import Image
-from preprocess import ImageDataset, transform
+from app.preprocess import ImageDataset, transform
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Initialize the model and load the state dictionary
 model = ConvVAE().to(device)
 model_name = "anomaly_model.pth"
-model_path = "C:/Users/USER/Documents/Projects/AI projects/Anomaly_app/Scaling_Anomaly_Detection/data/" + model_name
+model_path = "app/data/" + model_name
 state_dict = torch.load(model_path, map_location=device)  
 model.load_state_dict(state_dict)  
 model.eval()

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from preprocess import ImageDataset, transform
+from app.preprocess import ImageDataset, transform
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
