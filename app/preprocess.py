@@ -1,13 +1,5 @@
-import torch
-import os
-from PIL import Image
 from torchvision import transforms
 from torch.utils.data import Dataset
-import torch.nn as nn
-
-# app/preprocess.py
-from torch.utils.data import Dataset
-from PIL import Image
 
 class ImageDataset(Dataset):
     def __init__(self, images, image_names, transform=None):
@@ -30,7 +22,3 @@ transform = transforms.Compose([
     transforms.Resize((64, 64)), 
     transforms.ToTensor(),        
 ])
-
-# image_dir = "C:/Users/USER/Downloads/Garba/Uninfected/"
-# dataset = ImageDataset(image_dir=image_dir, transform=transform)
-# dataloader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)

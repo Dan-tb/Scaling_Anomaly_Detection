@@ -1,14 +1,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-# from train import device
 from preprocess import ImageDataset, transform
 
-
-# # image_dir = "C:/Users/USER/Downloads/Garba/Uninfected/"
-# image_dir = "https://drive.google.com/drive/folders/1-p8pSMjK8fIgEGJUjGQ6K8falpfeE7HY?usp=drive_link"
-# dataset = ImageDataset(image_dir=image_dir, transform=transform)
-# test_dataloader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -18,13 +12,12 @@ def calculate_reconstruction_error(recon_x, x):
 
 def detect_anomalies(model, test_dataloader, threshold):
     model.eval()
-    anomalies = []
     reconstruction_errors = []
     results = []
     
     with torch.no_grad():
         for batch_data in test_dataloader:
-            batch, image_paths = batch_data  # Assuming batch contains (images, paths)
+            batch, image_paths = batch_data
             batch = batch.to(device)
             
             # Reconstruct images
