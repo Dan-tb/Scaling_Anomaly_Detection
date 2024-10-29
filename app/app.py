@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from detection import detect_anomalies
+from app.detection import detect_anomalies
 from pydantic import BaseModel
 from typing import List
-from preprocess import ImageDataset, transform
+from app.preprocess import ImageDataset, transform
 import torch
-from model import ConvVAE
+from app.model import ConvVAE
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -13,7 +13,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = ConvVAE().to(device)
 
 model_name = "anomaly_model.pth"
-model_path = "C:/Users/USER/Documents/Projects/AI projects/Anomaly_app/Scaling_Anomaly_Detection/data/" + model_name
+model_path = "app/data/" + model_name
 state_dict = torch.load(model_path, map_location=device)  
 model.load_state_dict(state_dict)  
 
@@ -21,7 +21,8 @@ model.load_state_dict(state_dict)
 model.eval()
 
 # Create dataset and dataloader
-image_dir = "C:/Users/USER/Downloads/Garba/Uninfected/"
+# image_dir = "C:/Users/USER/Downloads/Garba/Uninfected/"
+image_dir = "https://drive.google.com/drive/folders/1-p8pSMjK8fIgEGJUjGQ6K8falpfeE7HY?usp=drive_link"
 dataset = ImageDataset(image_dir=image_dir, transform=transform)
 test_dataloader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)
 

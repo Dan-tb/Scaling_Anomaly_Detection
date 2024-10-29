@@ -2,8 +2,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from model import ConvVAE
-from preprocess import dataloader
+from app.model import ConvVAE
+from app.preprocess import dataloader
 
 def loss_function(recon_x, x, mu, logvar):
     # (batch_size, 3, 64, 64)
