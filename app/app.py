@@ -15,7 +15,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Initialize the model and load the state dictionary
 model = ConvVAE().to(device)
 model_name = "anomaly_model.pth"
-model_path = "app/data/" + model_name
+model_path = "data/" + model_name
 state_dict = torch.load(model_path, map_location=device)  
 model.load_state_dict(state_dict)  
 model.eval()

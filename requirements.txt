@@ -7,4 +7,5 @@ torch==2.5.0
 torchvision==0.20.0
 typer==0.12.5
 pillow
-
+rarfile
+python-multipart
